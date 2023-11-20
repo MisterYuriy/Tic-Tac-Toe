@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic-Tac-Toe</title>
+    <meta http-equiv="refresh"
+    content="10" />
+</head>
+<body>
+    <h1>Tic-Tac-Toe</h1>
+    <h2>Hello {{ player.nickname }}</h2>
+    <a href="/home">Back Home</a><br>
+    <a href={{ url_for('games-item', id=game.id) }}>Link to join the game</a><br>
+    Players:<br>
+    <ul>
+      {% for participant in game.participants %}
+        <li>{{ participant }}</li>
+      {% endfor %}
+    </ul>
+
+    {% if not game.is_open %}
+
+      {% if game.winner %}
+        <h3>Player {{ game.winner.nickname }} won!!!</h3>
+      {% elif error %}
+          ERROR: Next move {{ game.next_player.nickname }}<br>
+      {% else %}
+          Next move {{ game.next_player.nickname }}<br>
+      {% endif %}
+      <table>
+          {% for row in range(game.players_number + 1) %}
+            <tr>
+              {% for col in range(game.players_number + 1) %}
+                <td>
+                  {% set move = game.get_move(row, col) %}
+                    {% if move %}
+                      <span>{{ move }}</span>
+                    {% elif game.status.value != 'finished' %}
+                      <a href="/games/{{ game.id }}/moves/{{ row }}-{{ col }}">--</a>
+                    {% else %}
+                      <span>--</span>
+                    {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </table>
+    {% else %}
+      <span>Wait for the players</span>
+    {% endif %}
+</body>
+</html>
+

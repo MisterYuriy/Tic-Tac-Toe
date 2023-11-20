@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic-Tac-Toe - Sign In</title>
+</head>
+<body>
+    <h1>Tic-Tac-Toe - Sign In</h1>
+    {% if error %}
+      {{ error }}
+    {% endif %}
+    <form method="post">
+        Nickname: <input type="text" name="nickname" required><br>
+        Password: <input type="password" name="password" required>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
